@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Edit Employee</title>
+  <style>
+    body{font-family:Arial;background:#f5f7fb;padding:20px}
+    .card{max-width:560px;margin:auto;background:#fff;padding:16px;border-radius:8px}
+    input,button{width:100%;padding:10px;margin:8px 0;border-radius:6px}
+    button{background:#06b6d4;color:#fff;border:none}
+    img{width:80px;height:80px;border-radius:6px}
+  </style>
+</head>
+<body>
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <script>
+        alert("{{ message }}");
+      </script>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+  <div class="card">
+    <h3>Edit Employee</h3>
+    {% if emp.photo %}
+      <div style="margin-bottom:8px"><img src="/static/emp_photos/{{emp.photo}}" alt="photo"></div>
+    {% endif %}
+    <form method="POST" action="/update_employee/{{emp.id}}" enctype="multipart/form-data">
+      <input name="name" value="{{emp.name}}" required>
+      <input name="mobile" value="{{emp.mobile}}">
+      <input name="email" value="{{emp.email}}">
+      <input name="address" value="{{emp.address}}">
+      <label>Change Photo (optional)</label>
+      <input type="file" name="photo">
+      <button>Save</button>
+    </form>
+    <p><a href="/admin/employees">⟵ Back</a></p>
+  </div>
+</body>
+</html>

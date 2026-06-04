@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Manage Employees</title>
+  <style>
+    body{font-family:Arial;background:#f5f7fb;padding:20px}
+    .card{max-width:900px;margin:auto;background:#fff;padding:16px;border-radius:8px}
+    input,button{padding:8px;margin:6px 0;}
+    table{width:100%;border-collapse:collapse;margin-top:12px}
+    th,td{border:1px solid #eee;padding:8px;text-align:center}
+    img{width:60px;height:60px;border-radius:6px}
+    .free{color:green;font-weight:bold}
+    .busy{color:red;font-weight:bold}
+  </style>
+</head>
+<body>
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <script>
+        alert("{{ message }}");
+      </script>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+  <div class="card">
+    <h2>Employees Management</h2><br>
+
+  
+
+    <form method="POST" action="/add_employee" enctype="multipart/form-data">
+      <input name="name" placeholder="Name" required>
+      <input name="mobile" placeholder="Mobile" required>
+      <input name="email" placeholder="Email">
+      <input name="address" placeholder="Address">
+      <input type="file" name="photo">
+      <button>Add Employee</button>
+    </form>
+
+    <table>
+      <tr>
+        <th>Photo</th>
+        <th>Name</th>
+        <th>Mobile</th>
+        <th>Email</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+
+      {% for e in employees %}
+      <tr>
+        <td>
+          {% if e.photo %}
+            <img src="/static/emp_photos/{{ e.photo }}">
+          {% else %}
+            —
+          {% endif %}
+        </td>
+        <td>{{ e.name }}</td>
+        <td>{{ e.mobile }}</td>
+        <td>{{ e.email }}</td>
+        <td>
+          {% if e.is_busy == 0 %}
+            <span class="free">Free</span>
+          {% else %}
+            <span class="busy">Working</span>
+          {% endif %}
+        </td>
+        <td>
+          <a href="/edit_employee/{{ e.id }}">Edit</a> |
+          <a href="/delete_employee/{{ e.id }}">Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <p style="margin-top:10px"><a href="/admin">⟵ Back</a></p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background: #f5f7fb;
+    }
+
+    .header {
+        background: linear-gradient(90deg, #4f46e5, #06b6d4);
+        padding: 18px;
+        text-align: center;
+        color: #fff;
+        font-weight: 700;
+    }
+
+    .container {
+        padding: 25px;
+        max-width: 520px;
+        margin: 40px auto;
+        background: #fff;
+        border-radius: 8px;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    button {
+        width: 80%;
+        padding: 10px;
+        margin: 10px 0;
+        background: gainsboro;
+        border: none;
+        color: blue;
+        font-size: 16px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    button:hover {
+        background: grey;
+    }
+
+    .logout-link {
+        display: block;
+        margin-top: 15px;
+        color: #d40000;
+        font-weight: bold;
+    }
+</style>
+
+</head>
+<body>
+    {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <script>
+        alert("{{ message }}");
+      </script>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+
+<div class="header">
+    <h1>LAUNDRY SERVICE PORTAL</h1>
+</div>
+
+<div class="container">
+    <h2>Admin Panel</h2>
+
+    <a href="/admin/categories"><button>Categories</button></a>
+    <a href="/admin/clothes"><button>Clothes & Price</button></a>
+    <a href="/admin/employees"><button>Employees</button></a>
+    <a href="/admin/bookings"><button>Bookings</button></a>
+    
+    
+    <a href="/admin/reports"><button>Reports</button></a>
+
+    <a class="logout-link" href="/logout">Logout</a>
+</div>
+
+</body>
+</html>

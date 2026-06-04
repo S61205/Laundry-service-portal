@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Clothes Management</title>
+
+<style>
+body{
+font-family:Arial;
+background:#f5f7fb;
+padding:20px;
+}
+
+.container{
+max-width:600px;
+margin:auto;
+background:#fff;
+padding:20px;
+border-radius:8px;
+}
+
+input,button{
+padding:8px;
+margin:5px 0;
+width:100%;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:15px;
+}
+
+th,td{
+border:1px solid #eee;
+padding:8px;
+text-align:center;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<h2>Clothes & Price Management</h2>
+
+<form method="POST" action="/add_cloth">
+
+<input name="name" placeholder="Cloth Type (Shirt, Pant)" required>
+
+<input name="price" placeholder="Price per cloth" required>
+
+<button>Add Cloth</button>
+
+</form>
+
+<table>
+
+<tr>
+<th>ID</th>
+<th>Cloth</th>
+<th>Price</th>
+<th>Action</th>
+</tr>
+
+{% for c in clothes %}
+
+<tr>
+
+<td>{{c.id}}</td>
+<td>{{c.cloth_name}}</td>
+<td>₹{{c.price}}</td>
+
+<td>
+<a href="/delete_cloth/{{c.id}}">Delete</a>
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<br>
+
+<a href="/admin">← Back</a>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="utf-8">
+<title>Employees Delivery Report</title>
+
+<style>
+body{font-family:Arial;background:#f5f7fb;margin:0;}
+
+.header{
+background:linear-gradient(90deg,#4f46e5,#06b6d4);
+color:white;
+text-align:center;
+padding:20px;
+}
+
+.container{
+width:90%;
+margin:30px auto;
+background:white;
+padding:20px;
+border-radius:8px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,td{
+border:1px solid #ccc;
+padding:10px;
+text-align:center;
+}
+
+th{
+background:#4f46e5;
+color:white;
+}
+
+.back{
+margin-top:20px;
+text-align:right;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+<h2>Employees Delivery Report</h2>
+</div>
+
+<div class="container">
+    <div style="margin:10px 0;">
+      <a href="/download_employees"
+         style="padding:8px 14px;
+                background:#0f172a;
+                color:#fff;
+                border-radius:6px;
+                text-decoration:none;">
+        ⬇ Download Employees CSV
+      </a>
+    </div>
+
+<table>
+
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Mobile</th>
+<th>Email</th>
+<th>Address</th>
+<th>Status</th>
+</tr>
+
+{% for r in rows %}
+
+<tr>
+<td>{{r.id}}</td>
+<td>{{r.name}}</td>
+<td>{{r.mobile}}</td>
+<td>{{r.email}}</td>
+<td>{{r.address}}</td>
+<td>
+{% if r.is_busy == 1 %}
+Busy
+{% else %}
+Free
+{% endif %}
+</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+<div class="back">
+<a href="/admin/reports">← Back</a>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manage Bookings</title>
+
+<style>
+body{font-family:Arial;margin:0;background:#f5f7fb}
+
+.container{
+padding:40px;
+max-width:1000px;
+margin:24px auto;
+background:#fff;
+border-radius:8px
+}
+
+table{
+width:100%;
+border-collapse:collapse
+}
+
+th,td{
+border:1px solid #eee;
+padding:8px;
+text-align:left
+}
+
+select,button{
+padding:6px;
+margin:4px
+}
+
+</style>
+</head>
+
+<body>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<script>alert("{{ message }}");</script>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<div class="container">
+
+<h2>Bookings Management</h2><br>
+
+<table>
+
+<tr>
+<th>ID</th>
+<th>User</th>
+<th>Category</th>
+<th>Clothes</th>
+<th>Date</th>
+<th>Status</th>
+<th>Assign</th>
+</tr>
+
+{% for b in bookings %}
+
+<tr>
+
+<td>{{b.id}}</td>
+
+<td>{{b.uname}}</td>
+
+<td>{{b.category}}</td>
+
+<td>
+
+<table style="width:100%">
+
+<tr>
+<th>Cloth</th>
+<th>Qty</th>
+<th>Price</th>
+<th>Total</th>
+</tr>
+
+{% for item in b["items"] %}
+
+<tr>
+<td>{{item.cloth_name}}</td>
+<td>{{item.quantity}}</td>
+<td>₹{{item.price}}</td>
+<td>₹{{item.total_cost}}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+</td>
+
+<td>{{b.date}}</td>
+
+<td>{{b.status}}</td>
+
+<td>
+
+<form method="POST" action="/update_booking/{{b.id}}">
+
+<select name="employee">
+<option value="">--None--</option>
+
+{% for e in employees %}
+
+<option value="{{e.id}}" {% if e.id==b.employee_id %}selected{% endif %}>
+{{e.name}}
+</option>
+
+{% endfor %}
+
+</select>
+
+<select name="status">
+<option {% if b.status=='Pending' %}selected{% endif %}>Pending</option>
+<option {% if b.status=='Accepted' %}selected{% endif %}>Accepted</option>
+<option {% if b.status=='Rejected' %}selected{% endif %}>Rejected</option>
+<option {% if b.status=='Completed' %}selected{% endif %}>Completed</option>
+</select>
+
+<button type="submit">Save</button>
+
+</form>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<br>
+
+<p style="margin-top:10px">
+<a href="/admin">⟵ Back</a>
+</p>
+
+</div>
+
+</body>
+</html>

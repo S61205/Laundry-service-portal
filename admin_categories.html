@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Categories</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f3f5fc;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 520px;
+            margin: 40px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        h3 { margin-bottom: 20px; }
+
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 6px 0;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background: #4f46e5;
+            color: white;
+            border: none;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 18px;
+        }
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+        }
+        a { color: #4f46e5; text-decoration: none; }
+        .back { margin-top: 12px; }
+    </style>
+</head>
+<body>
+    {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <script>
+        alert("{{ message }}");
+      </script>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+
+<div class="container">
+    <h2>Categories Management</h2>
+
+    <form method="POST" action="/add_category">
+        <input type="text" name="category" placeholder="Category name" required>
+        <button>Add Category</button>
+    </form>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Action</th>
+        </tr>
+        {% for c in categories %}
+        <tr>
+            <td>{{ c.id }}</td>
+            <td>{{ c.name }}</td>
+            <td><a href="/delete_category/{{c.id}}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div class="back">
+        <a href="/admin">← Back</a>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="utf-8">
+<title>Category & Clothes Report</title>
+
+<style>
+body{font-family:Arial;background:#f5f7fb;margin:0;}
+
+.header{
+background:linear-gradient(90deg,#4f46e5,#06b6d4);
+color:white;
+text-align:center;
+padding:20px;
+}
+
+.container{
+width:90%;
+margin:30px auto;
+background:white;
+padding:20px;
+border-radius:8px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,td{
+border:1px solid #ccc;
+padding:10px;
+text-align:center;
+}
+
+th{
+background:#4f46e5;
+color:white;
+}
+
+.back{
+margin-top:20px;
+text-align:right;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+<h2>Categories Report</h2>
+</div>
+
+<div class="container">
+
+<table>
+
+<tr>
+<th>ID</th>
+<th>Category Name</th>
+</tr>
+
+{% for r in rows %}
+
+<tr>
+<td>{{r.id}}</td>
+<td>{{r.name}}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+<br><br>
+
+<h3>Clothes List</h3>
+
+<table>
+
+<tr>
+<th>ID</th>
+<th>Cloth Name</th>
+<th>Price</th>
+</tr>
+
+{% for c in clothes %}
+
+<tr>
+<td>{{c.id}}</td>
+<td>{{c.cloth_name}}</td>
+<td>₹{{c.price}}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+<div class="back">
+<a href="/admin/reports">← Back</a>
+</div>
+
+</div>
+</body>
+</html>

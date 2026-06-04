@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Login</title>
+<style>
+body{font-family:Arial;margin:0;background:#f5f7fb}
+.header{background:linear-gradient(90deg,#4f46e5,#06b6d4);padding:18px;text-align:center;color:#fff;font-weight:700}
+.container{padding:40px;max-width:420px;margin:30px auto;background:#fff;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,0.06)}
+input,button{width:100%;padding:10px;margin:8px 0;border-radius:6px}
+button{background:#0f172a;color:#fff;border:none}
+</style>
+</head><body>
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <script>
+        alert("{{ message }}");
+      </script>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<div class="header"><h1>LAUNDRY SERVICE PORTAL</h1></div><br><br><br>
+<div class="container">
+  <h2 style="margin:0 0 10px">Sign in</h2>
+  <form method="POST" action="/login">
+    <input name="email" placeholder="Email" required>
+    <input name="password" type="password" placeholder="Password" required>
+    <button>Login</button>
+  </form>
+  <p style="text-align:center;margin-top:10px"><a href="/register">Create account</a></p>
+</div>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <script>
+      alert("{{ messages[0] }}");
+    </script>
+  {% endif %}
+{% endwith %}
+
+</body></html>

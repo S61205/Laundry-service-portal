@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>My Bookings</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f5f7fb;
+padding:20px
+}
+
+.card{
+max-width:1000px;
+margin:auto;
+background:#fff;
+padding:16px;
+border-radius:8px
+}
+
+table{
+width:100%;
+border-collapse:collapse
+}
+
+th,td{
+padding:10px;
+border:1px solid #eee;
+text-align:left
+}
+
+img{
+width:80px;
+height:80px;
+border-radius:6px
+}
+
+button{
+padding:6px 10px;
+border:none;
+border-radius:6px
+}
+
+.btn-red{
+background:#dc2626;
+color:#fff
+}
+
+.btn-blue{
+background:#2563eb;
+color:#fff
+}
+
+</style>
+</head>
+
+<body>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<script>alert("{{ message }}");</script>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<div class="card">
+
+<h3>My Bookings</h3>
+
+<table>
+
+<tr>
+<th>ID</th>
+<th>Category</th>
+<th>Clothes</th>
+<th>Date</th>
+<th>Status</th>
+<th>Employee</th>
+<th>Action</th>
+</tr>
+
+{% for b in bookings %}
+
+<tr>
+
+<td>{{b.id}}</td>
+
+<td>{{b.category}}</td>
+
+<td>
+
+<table style="width:100%">
+
+<tr>
+<th>Cloth</th>
+<th>Qty</th>
+<th>Price</th>
+<th>Total</th>
+</tr>
+
+{% for item in b["items"] %}
+
+<tr>
+<td>{{item.cloth_name}}</td>
+<td>{{item.quantity}}</td>
+<td>₹{{item.price}}</td>
+<td>₹{{item.total_cost}}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+</td>
+
+<td>{{b.date}}</td>
+
+<td>{{b.status}}</td>
+
+<td>
+
+{% if b.emp_name %}
+
+<img src="/static/emp_photos/{{b.emp_photo}}" alt="photo"><br>
+
+<strong>{{b.emp_name}}</strong><br>
+
+{{b.emp_mobile}}<br>
+
+{{b.emp_email}}<br>
+
+{{b.emp_address}}
+
+{% else %}
+
+Not assigned
+
+{% endif %}
+
+</td>
+
+<td>
+
+{% if b.status == 'Pending' %}
+
+<a href="/edit_booking/{{b.id}}">
+<button class="btn-blue">Edit</button>
+</a>
+
+<a href="/cancel/{{b.id}}">
+<button class="btn-red">Cancel</button>
+</a>
+
+{% else %}
+
+<small>Not editable</small>
+
+{% endif %}
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<p style="margin-top:10px">
+<a href="/dashboard">⟵ Back</a>
+</p>
+
+</div>
+
+</body>
+</html>

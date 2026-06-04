@@ -1,0 +1,42 @@
+<!DOCTYPE html><html><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Employees</title>
+<style>
+body{font-family:Arial;margin:0;background:#f5f7fb}
+.header{background:linear-gradient(90deg,#4f46e5,#06b6d4);padding:18px;text-align:center;color:#fff;font-weight:700}
+.container{padding:20px;max-width:980px;margin:24px auto;background:#fff;border-radius:8px}
+.card{display:flex;gap:12px;align-items:center;padding:10px;border:1px solid #eee;margin-bottom:8px;border-radius:6px}
+img{width:80px;height:80px;border-radius:6px}
+</style>
+</head><body>
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <script>
+        alert("{{ message }}");
+      </script>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<div class="header"><h1>LAUNDRY SERVICE PORTAL</h1></div><br><br><br>
+<div class="container">
+  <h3>Employees</h3>
+  {% for e in employees %}
+  <div class="card">
+    {% if e.photo %}
+      <img src="/static/emp_photos/{{e.photo}}">
+    {% else %}
+      <div style="width:80px;height:80px;background:#eee;border-radius:6px"></div>
+    {% endif %}
+    <div>
+      <strong>{{e.name}}</strong><br>
+      {{e.mobile}}<br>
+      {{e.email}}<br>
+      {{e.address}}
+    </div>
+  </div>
+  {% endfor %}
+  <p style="margin-top:8px"><a href="/dashboard">⟵ Back</a></p>
+</div>
+</body></html>
